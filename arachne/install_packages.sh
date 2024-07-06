@@ -48,17 +48,17 @@ apt update && apt install --no-install-recommends -yf libopenblas-dev libharfbuz
   libcairo2-dev wget unzip apt-transport-https python-dev krb5-user virtualenv libgeos-dev libprotobuf-dev \
   protobuf-compiler libjq-dev
 
-wget http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip \
+wget --no-check-certificate http://cdn.azul.com/zcek/bin/ZuluJCEPolicies.zip \
         && echo "8021a28b8cac41b44f1421fd210a0a0822fcaf88d62d2e70a35b2ff628a8675a  ZuluJCEPolicies.zip" | sha256sum -c - \
         && unzip -oj ZuluJCEPolicies.zip ZuluJCEPolicies/local_policy.jar -d /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/ \
         && unzip -oj ZuluJCEPolicies.zip ZuluJCEPolicies/US_export_policy.jar -d /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/ \
         && rm -f ZuluJCEPolicies.zip
 
 # Redshift Certificate Authority Bundle
-wget https://s3.amazonaws.com/redshift-downloads/redshift-keytool.jar && java -jar redshift-keytool.jar -s && rm -f redshift-keytool.jar
+wget --no-check-certificate https://s3.amazonaws.com/redshift-downloads/redshift-keytool.jar && java -jar redshift-keytool.jar -s && rm -f redshift-keytool.jar
 
 # Installing R
-wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+wget --no-check-certificate -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
 
 apt update && apt -y --allow-unauthenticated --no-install-recommends install r-base r-base-dev
@@ -75,7 +75,7 @@ _EOF_
 # Miniconda for Python 3.8
 # Using 4.5.12 since latest version failed during installation
 # https://github.com/conda/conda/issues/10143
-wget https://repo.anaconda.com/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh
+wget --no-check-certificate https://repo.anaconda.com/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh
 
 if [ "$(sha256sum Miniconda3-4.5.12-Linux-x86_64.sh)" -ne "866ae9dff53ad0874e1d1a60b1ad1ef8" ]; then
   echo "Miniconda checksum failed, try again"
